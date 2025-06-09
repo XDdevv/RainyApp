@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Rainyyy</string>
+    <string name="api_key">AIzaSyA-_1o4CdT20QbfmJ6jdO3-akIwJXTJy3Q</string>
+    <string name="home">Home</string>
+    <string name="shorts">Shorts</string>
+    <string name="videos">Videos</string>
+    <string name="comments">Comments</string>
+    <string name="about_her">About her</string>
+    <string name="rainych_ran">Rainych Ran</string>
+</resources>
