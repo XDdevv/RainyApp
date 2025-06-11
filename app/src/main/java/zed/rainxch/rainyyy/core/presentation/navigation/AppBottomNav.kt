@@ -9,6 +9,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -21,6 +22,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun AppBottomNav(
@@ -32,15 +34,44 @@ fun AppBottomNav(
         containerColor = MaterialTheme.colorScheme.primaryContainer
     ) {
         val dividerColor = MaterialTheme.colorScheme.onBackground
-        var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
-        LaunchedEffect(navController.currentBackStackEntry) {
+        val currentRoute by navController.currentBackStackEntryAsState()
+        val selectedItemIndex by remember {
+            derivedStateOf {
+                when {
+                    currentRoute?.destination?.route?.endsWith(
+                        NavGraph.HomeScreen.route,
+                        true
+                    ) == true -> 0
 
+                    currentRoute?.destination?.route?.endsWith(
+                        NavGraph.ShortVideoScreen.route,
+                        true
+                    ) == true -> 1
+
+                    currentRoute?.destination?.route?.endsWith(
+                        NavGraph.VideosScreen.route,
+                        true
+                    ) == true -> 2
+
+                    currentRoute?.destination?.route?.endsWith(
+                        NavGraph.CommentsScreen.route,
+                        true
+                    ) == true -> 3
+
+                    currentRoute?.destination?.route?.endsWith(
+                        NavGraph.InfoScreen.route,
+                        true
+                    ) == true -> 4
+
+                    else -> 0
+                }
+            }
         }
+
         BottomNavItem.getBottomNavItems().forEachIndexed { index, item ->
             NavigationBarItem(
                 selected = selectedItemIndex == index,
                 onClick = {
-                    selectedItemIndex = index
                     navController.navigate(item.screen) {
                         launchSingleTop = true
                         restoreState = true

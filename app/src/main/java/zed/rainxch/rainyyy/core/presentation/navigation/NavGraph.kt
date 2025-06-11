@@ -2,20 +2,21 @@ package zed.rainxch.rainyyy.core.presentation.navigation
 
 import kotlinx.serialization.Serializable
 
-sealed class NavGraph {
+@Serializable
+sealed class NavGraph(val route: String) {
     @Serializable
-    data object HomeScreen : NavGraph()
+    data object HomeScreen : NavGraph("HomeScreen")
 
     @Serializable
-    data object ShortVideoScreen : NavGraph()
+    data object ShortVideoScreen : NavGraph("ShortVideoScreen")
 
     @Serializable
-    data object VideosScreen : NavGraph()
+    data object VideosScreen : NavGraph("VideosScreen")
 
     @Serializable
-    data object CommentsScreen : NavGraph()
+    data object CommentsScreen : NavGraph("CommentsScreen")
 
     @Serializable
-    data object InfoScreen : NavGraph()
+    data object InfoScreen : NavGraph("InfoScreen")
 
 }
